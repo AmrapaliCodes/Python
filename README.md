@@ -64,6 +64,8 @@ numbers, letters = zip(*pairs)
 print(numbers)  # (1, 2, 3)
 print(letters)  # ('a', 'b', 'c')
 
+Day1: why we are using _ after a variable in python?
+# single_trailing_underscore_ : used by convention to avoid conflicts with Python keyword
 ---------------------------------------------------------------------------------------------------------------------------
 
 
