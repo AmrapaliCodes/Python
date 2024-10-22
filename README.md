@@ -66,7 +66,117 @@ print(letters)  # ('a', 'b', 'c')
 
 Day1: why we are using _ after a variable in python?
 # single_trailing_underscore_ : used by convention to avoid conflicts with Python keyword
----------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Day3: Lets understand some useful concepts and differences
+
+What is the difference between msg[i] and msg.value in the dictionary, say msg?
+msg[i]: Accesses a specific value by key in the dictionary.
+msg.values(): Returns all values in the dictionary.
+
+What is the difference between extend and append() in list?
+append():
+Adds a single element to the end of the list.
+The element can be of any data type (including another list, which will be added as a single object).
+
+extend(): 
+Adds multiple elements to the end of the list.
+Takes an iterable (like a list, tuple, or string) and adds each element of that iterable to the list individually
+
+Example
+append():
+
+my_list = [1, 2, 3]
+my_list.append(4)
+print(my_list)  # Output: [1, 2, 3, 4]
+
+my_list.append([5, 6])
+print(my_list)  # Output: [1, 2, 3, 4, [5, 6]]
+
+extend():
+
+my_list = [1, 2, 3]
+my_list.extend([4, 5])
+print(my_list)  # Output: [1, 2, 3, 4, 5]
+
+my_list.extend((6, 7))
+print(my_list)  # Output: [1, 2, 3, 4, 5, 6, 7]
+
+my_list.extend(6)
+print(my_list)  # Output: TypeError: 'int' object is not iterable
+
+Example from the code:
+msg={
+    1: "my phonenumber is 9012912012",
+    2: "my email id is xyz.com and my phone no is 9012912041 ",
+    3: "hey there 321345532",
+    4: "890076"
+    }
+
+# using append
+list=[]
+for i in msg:
+    list.append(msg[i].split())
+print(list) 
+# Output: [['my', 'phonenumber', 'is', '9012912012'], ['my', 'email', 'id', 'is', 'xyz.com', 'and', 'my', 'phone', 'no', 'is', '9012912041'], ['hey', 'there', '321345532'], ['890076']]
+
+# using extend
+list=[]
+for i in msg:
+    list.extend(msg[i].split())
+print(list)
+# Output: ['my', 'phonenumber', 'is', '9012912012', 'my', 'email', 'id', 'is', 'xyz.com', 'and', 'my', 'phone', 'no', 'is', '9012912041', 'hey', 'there', '321345532', '890076']
+
+what is isdigit() in python?
+The isdigit() method in Python is a string method that checks if all characters in a string are digits. It returns True if the string contains only digit characters (0-9) and is not empty; otherwise, it returns False
+
+Example
+num_str1 = "12345"
+num_str2 = "123a5"
+num_str3 = ""
+num_str4 = " 12345 "
+num_str5 = "١٢٣٤٥"  # Arabic digits
+print(num_str1.isdigit())  # Output: True
+print(num_str2.isdigit())  # Output: False
+print(num_str3.isdigit())  # Output: False
+print(num_str4.isdigit())  # Output: False
+print(num_str5.isdigit())  # Output: True
 
 
+what is list and dict comprehension?
+List comprehension and dictionary comprehension are concise ways to create lists and dictionaries in Python
 
+Syntax:
+list comprehension
+[expression for item in iterable if condition]
+
+dict comprehension
+{key_expression: value_expression for item in iterable if condition}
+
+
+Example
+
+list comprehension
+squares = [x**2 for x in range(10) if x % 2 == 0]
+print(squares)  # Output: [0, 4, 16, 36, 64]
+
+dict comprehension
+squares_dict = {x: x**2 for x in range(5)}
+print(squares_dict)  # Output: {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}
+
+Breakdown of code logic:
+phone_list = ['+91' + word for line in msg.values() for word in line.split() if word.isdigit() and len(word)<=10]
+
+1. phone_list=[line for line in msg.values()] #Extracting all values(lines) from dict msg
+   print(phone_list) #['my phonenumber is 9012912012', 'my email id is xyz.com and my phone no is 9012912041 ', 'hey there 321345532', '890076']
+
+2. phone_list=[word for line in msg.values() for word in line.split()] #Extracting all words from all lines
+   print(phone_list) #['my', 'phonenumber', 'is', '9012912012', 'my', 'email', 'id', 'is', 'xyz.com', 'and', 'my', 'phone', 'no', 'is', '9012912041', 'hey', 'there', '321345532', '890076']
+
+3. phone_list=[word for line in msg.values() for word in line.split() if word.isdigit() and len(word)<=10] # Checking if each word is a digit and word len<=10
+   print(phone_list) #['9012912012', '9012912041', '321345532', '890076']
+
+4. phone_list=[word for line in msg.values() for word in line.split() if word.isdigit() and len(word)<=10] # Finally concating +91
+   print(phone_list) #['+919012912012', '+919012912041', '+91321345532', '+91890076']
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
